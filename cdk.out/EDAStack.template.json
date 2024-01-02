@@ -192,6 +192,30 @@
     "aws:asset:property": "Code"
    }
   },
+  "imagesTable4174DE57": {
+   "Type": "AWS::DynamoDB::Table",
+   "Properties": {
+    "AttributeDefinitions": [
+     {
+      "AttributeName": "imageName",
+      "AttributeType": "S"
+     }
+    ],
+    "BillingMode": "PAY_PER_REQUEST",
+    "KeySchema": [
+     {
+      "AttributeName": "imageName",
+      "KeyType": "HASH"
+     }
+    ],
+    "TableName": "imagesTable"
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "EDAStack/imagesTable/Resource"
+   }
+  },
   "imgcreatedqueueB98FF37D": {
    "Type": "AWS::SQS::Queue",
    "Properties": {
@@ -464,6 +488,34 @@
          ]
         }
        ]
+      },
+      {
+       "Action": [
+        "dynamodb:BatchGetItem",
+        "dynamodb:BatchWriteItem",
+        "dynamodb:ConditionCheckItem",
+        "dynamodb:DeleteItem",
+        "dynamodb:DescribeTable",
+        "dynamodb:GetItem",
+        "dynamodb:GetRecords",
+        "dynamodb:GetShardIterator",
+        "dynamodb:PutItem",
+        "dynamodb:Query",
+        "dynamodb:Scan",
+        "dynamodb:UpdateItem"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "imagesTable4174DE57",
+          "Arn"
+         ]
+        },
+        {
+         "Ref": "AWS::NoValue"
+        }
+       ]
       }
      ],
      "Version": "2012-10-17"
@@ -486,7 +538,7 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-eu-west-1"
      },
-     "S3Key": "6f9b0c57bc4e5df83aed08a391fac847ddd68c91ecef201eb34bdc7422514666.zip"
+     "S3Key": "0218c8a75b380b6682e21320828ac7f05a5a88e0d20058f69c95a25d0bb99f25.zip"
     },
     "Environment": {
      "Variables": {
@@ -510,7 +562,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "EDAStack/ProcessImageFn/Resource",
-    "aws:asset:path": "/mnt/c/Users/ugwul/Documents/College/Year 4 - Semester 1/Distributed System/ds-eda-lab",
+    "aws:asset:path": "asset.0218c8a75b380b6682e21320828ac7f05a5a88e0d20058f69c95a25d0bb99f25",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -619,7 +671,7 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-eu-west-1"
      },
-     "S3Key": "c48c330347662b6d57d3458011b2704a902ad1a0f6b42db401ecee8abd9bbc78.zip"
+     "S3Key": "c7e795ae4aea550b0f4a11483c92426873aae090f26d553633edb0db0fea59da.zip"
     },
     "Environment": {
      "Variables": {
@@ -643,7 +695,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "EDAStack/mailer-function/Resource",
-    "aws:asset:path": "/mnt/c/Users/ugwul/Documents/College/Year 4 - Semester 1/Distributed System/ds-eda-lab",
+    "aws:asset:path": "asset.c7e795ae4aea550b0f4a11483c92426873aae090f26d553633edb0db0fea59da",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -753,7 +805,7 @@
   "CDKMetadata": {
    "Type": "AWS::CDK::Metadata",
    "Properties": {
-    "Analytics": "v2:deflate64:H4sIAAAAAAAA/2VRTU+EMBD9Ld7L6LoXru5Gb+oK3kkpdTN8tMi0GNPw36UtATZe5s17ffPaZh4hTeHhjv9QIqomabEElxsuGjZLhaMjuJMVjTTs/KWWLsJFtyh+N3nhkZw4yYnRN4H7sNJKb4tNqNvsjs5+NftzW5IYsDeolXfc8E/do/BqbELdwnZ0Yi3vyooXSleyJngL8GKVCDnIO3CZbsPDAm4p62uOBSeShuDJwxIIbrasOc+jVCbXdhDylfc9qqtP+K9OEztbMrrLJAU93Lv2N0eXQY9YyYGFa+dlXH3sfvDdmt6aifm/QU334yGFg19jTYjJYJXBTkIW8Q/WpvwU4gEAAA=="
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/2VRy1LDIBT9FvcUrd1kazu6U2vSfYYAdsgDYi7E6TD8u3CTSdJxw3lwOBeGZ5pl9OmB/cKOi2bXqor6wjLekGiVHg7UHx1vpCWnbz2zCc6mVfy22rOexJGBDETcNOuMiJUXVrUyZZEEAj9A/ZeTDs2J4Lq2bmTM65gvXAV8UL1VRqfEnb6YXnGcgATXtWwjA2lZVwlWaiNkDfQD4c1pjj2KddTnZrot4tqy3OZQMgBpgb4kmAupj5Gl53WU2hbGDVy+s75X+poa/rshkJMDa7pcAvo4d+F3W+fBjErIgeDY+E3XVLs9+Ols72wg6W20hsdxn9F9+uAalNoNTlvVSZpP+AeICwpQ/AEAAA=="
    },
    "Metadata": {
     "aws:cdk:path": "EDAStack/CDKMetadata/Default"

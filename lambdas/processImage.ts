@@ -1,5 +1,6 @@
 /* eslint-disable import/extensions, import/no-absolute-path */
 import { SQSHandler } from "aws-lambda";
+import { createDDbDocClient } from "../utils";
 // import { sharp } from "/opt/nodejs/sharp-utils";
 import {
   GetObjectCommand,
@@ -8,12 +9,16 @@ import {
   S3Client,
   PutObjectCommand,
 } from "@aws-sdk/client-s3";
+import { PutCommand } from "@aws-sdk/lib-dynamodb";
 
 const s3 = new S3Client();
+const ddbDocClient = createDDbDocClient();
 
 export const handler: SQSHandler = async (event) => {
-  console.log("Event ", event);
-  for (const record of event.Records) {
+  try {
+
+    console.log("Event ", event);
+    for (const record of event.Records) {
     const recordBody = JSON.parse(record.body);
     console.log('Raw SNS message ',JSON.stringify(recordBody))
     if (recordBody.Records) {
@@ -35,7 +40,22 @@ export const handler: SQSHandler = async (event) => {
           throw new Error("Unsupported image type: ${imageType. ");
         }
         // process image upload 
+
+        const imageName = srcKey.split("/");
+        await ddbDocClient.send(
+          new PutCommand({
+            TableName: process.env.TABLE_NAME,
+            Item: {
+              imageName: imageName,
+            }
+          })
+        )
       }
+
     }
+  }
+
+  } catch (error) {
+    console.log("Error ", error);
   }
 };

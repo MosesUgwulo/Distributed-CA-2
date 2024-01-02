@@ -176,6 +176,51 @@
               "version": "2.88.0"
             }
           },
+          "imagesTable": {
+            "id": "imagesTable",
+            "path": "EDAStack/imagesTable",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "EDAStack/imagesTable/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::DynamoDB::Table",
+                  "aws:cdk:cloudformation:props": {
+                    "attributeDefinitions": [
+                      {
+                        "attributeName": "imageName",
+                        "attributeType": "S"
+                      }
+                    ],
+                    "billingMode": "PAY_PER_REQUEST",
+                    "keySchema": [
+                      {
+                        "attributeName": "imageName",
+                        "keyType": "HASH"
+                      }
+                    ],
+                    "tableName": "imagesTable"
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_dynamodb.CfnTable",
+                  "version": "2.88.0"
+                }
+              },
+              "ScalingRole": {
+                "id": "ScalingRole",
+                "path": "EDAStack/imagesTable/ScalingRole",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.Resource",
+                  "version": "2.88.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_dynamodb.Table",
+              "version": "2.88.0"
+            }
+          },
           "img-created-queue": {
             "id": "img-created-queue",
             "path": "EDAStack/img-created-queue",
@@ -586,6 +631,34 @@
                                       ]
                                     }
                                   ]
+                                },
+                                {
+                                  "Action": [
+                                    "dynamodb:BatchGetItem",
+                                    "dynamodb:BatchWriteItem",
+                                    "dynamodb:ConditionCheckItem",
+                                    "dynamodb:DeleteItem",
+                                    "dynamodb:DescribeTable",
+                                    "dynamodb:GetItem",
+                                    "dynamodb:GetRecords",
+                                    "dynamodb:GetShardIterator",
+                                    "dynamodb:PutItem",
+                                    "dynamodb:Query",
+                                    "dynamodb:Scan",
+                                    "dynamodb:UpdateItem"
+                                  ],
+                                  "Effect": "Allow",
+                                  "Resource": [
+                                    {
+                                      "Fn::GetAtt": [
+                                        "imagesTable4174DE57",
+                                        "Arn"
+                                      ]
+                                    },
+                                    {
+                                      "Ref": "AWS::NoValue"
+                                    }
+                                  ]
                                 }
                               ],
                               "Version": "2012-10-17"
@@ -651,7 +724,7 @@
                       "s3Bucket": {
                         "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-eu-west-1"
                       },
-                      "s3Key": "6f9b0c57bc4e5df83aed08a391fac847ddd68c91ecef201eb34bdc7422514666.zip"
+                      "s3Key": "0218c8a75b380b6682e21320828ac7f05a5a88e0d20058f69c95a25d0bb99f25.zip"
                     },
                     "environment": {
                       "variables": {
@@ -871,7 +944,7 @@
                       "s3Bucket": {
                         "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-eu-west-1"
                       },
-                      "s3Key": "c48c330347662b6d57d3458011b2704a902ad1a0f6b42db401ecee8abd9bbc78.zip"
+                      "s3Key": "c7e795ae4aea550b0f4a11483c92426873aae090f26d553633edb0db0fea59da.zip"
                     },
                     "environment": {
                       "variables": {
